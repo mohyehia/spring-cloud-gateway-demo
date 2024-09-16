@@ -6,7 +6,7 @@ spring:
     gateway:
       routes:
         - id: book-route
-          uri: http://localhost:9001
+          uri: http://${BOOK_SERVICE_URI:localhost}:9001
           predicates:
             - Path=/books/**
           filters:
@@ -20,6 +20,10 @@ server:
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    root: info
+    org.springframework.cloud.gateway: trace
+
 
 management:
   endpoints:
