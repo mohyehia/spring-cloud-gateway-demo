@@ -12,6 +12,13 @@ spring:
           filters:
             - AddRequestHeader=X-Tenant-ID,acme
             - AddResponseHeader=X-Genre,fantasy
+            - name: Retry
+              args:
+                retries: 3
+                methods: GET
+                backoff:
+                  firstBackoff: 500ms
+                  maxBackoff: 2s
 
 
 server:
