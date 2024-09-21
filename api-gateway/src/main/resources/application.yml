@@ -12,6 +12,10 @@ spring:
           filters:
             - AddRequestHeader=X-Tenant-ID,acme
             - AddResponseHeader=X-Genre,fantasy
+            - name: CircuitBreaker
+              args:
+                name: book-service
+                fallbackUri: forward:/books-fallback
             - name: Retry
               args:
                 retries: 3
@@ -71,3 +75,19 @@ management:
       enabled: true
     os:
       enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      book-service:
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state:
+          seconds: 10
+        register-health-indicator: true
+  timelimiter:
+    instances:
+      book-service:
+        timeout-duration:
+          seconds: 3
