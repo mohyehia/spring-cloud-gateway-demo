@@ -42,3 +42,6 @@ management:
       enabled: true
     os:
       enabled: true
+
+loki:
+  uri: ${LOKI_URI:http://localhost:3100/loki/api/v1/push}

@@ -91,3 +91,6 @@ resilience4j:
       book-service:
         timeout-duration:
           seconds: 3
+
+loki:
+  uri: ${LOKI_URI:http://localhost:3100/loki/api/v1/push}
